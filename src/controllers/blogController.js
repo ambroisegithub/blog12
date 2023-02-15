@@ -5,7 +5,7 @@ export const getAllBlogs = async(req,res)=>{
 
     try{
         const blog = await BlogModel.find();
-        return res.status(300).json({
+        return res.status(200).json({
             status:"Get Success",
             number:blog.length,
             blog
