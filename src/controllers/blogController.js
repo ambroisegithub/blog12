@@ -1,46 +1,43 @@
 import BlogModel from "../models/blogModels"
 import commentModel from "../models/commentModel"
 import {UploadToCloud} from "../helpers/cloud.js"
-export const getAllBlogs = async(req,res)=>{
-
-    try{
-        const blog = await BlogModel.find();
-        return res.status(200).json({
-            status:"Get Success",
-            number:blog.length,
-            blog
-        }) ; 
-    }catch(error){
-        return res.status(500).json({
-            status:"failed",
-            error:error.message,
-        })
-    }
-}
-
-export const CreatePost = async(req,res)=>{
-    try{
-const result = await UploadToCloud(req.file,res);
-const newPost = await BlogModel.create({
-    title:req.body.title,
-    description:req.body.description,
-    image:result.secure_url,
-});
-return res.status(201).json({
-  status: "posted Success",
-  message: "blog created successfully",
-  content: {
-    newPost,
-  },
-});
-    }catch(error){
-return res.status(400).json({
-    status:"failed To create Blogs",
-    error:error.message,
-});
-    }
-}
-
+export const getAllBlogs = async (req, res) => {
+  try {
+    const blogs = await BlogModel.find();
+    return res.status(200).json({
+      status: "success",
+      number: blogs.length,
+      blogs,
+    });
+  } catch (error) {
+    return res.status(404).json({
+      status: "failed",
+      error: error.message,
+    });
+  }
+};
+export const CreatePost = async (req, res) => {
+  try {
+    const result = await UploadToCloud(req.file, res);
+    const newPost = await BlogModel.create({
+      title: req.body.title,
+      description: req.body.description,
+      image: result.secure_url,
+    });
+    return res.status(201).json({
+      status: "success",
+      message: "Blog created successfully",
+      content: {
+        newPost,
+      },
+    });
+  } catch (error) {
+    return res.status(400).json({
+      status: "failed",
+      error: error.message,
+    });
+  }
+};
 export const updatePost = async (req, res) => {
   try {
     const id = req.params.id;
@@ -50,7 +47,7 @@ export const updatePost = async (req, res) => {
     if (!post) {
       return res.status(400).json({
         status: "failed",
-        message: "Invalid Id can not uploads blog",
+        message: "Id of post not found",
       });
     }
     await BlogModel.findByIdAndUpdate(id, {
@@ -59,7 +56,7 @@ export const updatePost = async (req, res) => {
       image: result.secure_url,
     });
 
-    return res.status(201).json({
+    return res.status(200).json({
       status: "success",
       message: "Post updated successfully",
     });
@@ -76,17 +73,17 @@ export const getSinglePost = async (req, res) => {
     const id = req.params.id;
     const post = await BlogModel.findById(id);
     if (!post) {
-      return res.status(200).json({
+      return res.status(400).json({
         status: "failed",
         message: "Id of post not found",
       });
     }
-    return res.status(500).json({
+    return res.status(200).json({
       status: "success",
       post,
     });
   } catch (error) {
-    return res.status(200).json({
+    return res.status(400).json({
       status: "failed",
       error: error,
     });
@@ -121,7 +118,7 @@ export const createComment = async (req, res) => {
     if (!post) {
       return res.status(400).json({
         status: "failed",
-        message: "The post not found",
+        message: "Post you are wishing to comment on doesn't exist",
       });
     }
     const comment = new commentModel({
@@ -143,5 +140,4 @@ export const createComment = async (req, res) => {
     });
   }
 };
-
 
