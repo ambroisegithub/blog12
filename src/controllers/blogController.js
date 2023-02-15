@@ -5,7 +5,7 @@ export const getAllBlogs = async(req,res)=>{
 
     try{
         const blog = await BlogModel.find();
-        return res.status(300).json({
+        return res.status(200).json({
             status:"Get Success",
             number:blog.length,
             blog
@@ -48,7 +48,7 @@ export const updatePost = async (req, res) => {
 
     const post = await BlogModel.findById(id);
     if (!post) {
-      return res.status(200).json({
+      return res.status(400).json({
         status: "failed",
         message: "Invalid Id can not uploads blog",
       });
@@ -59,12 +59,12 @@ export const updatePost = async (req, res) => {
       image: result.secure_url,
     });
 
-    return res.status(500).json({
+    return res.status(201).json({
       status: "success",
       message: "Post updated successfully",
     });
   } catch (error) {
-    return res.status(200).json({
+    return res.status(400).json({
       status: "failed",
       error: error,
     });

@@ -6,8 +6,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 var _mongoose = _interopRequireDefault(require("mongoose"));
-// import validator from "validator"
-
 var BlogShcema = new _mongoose["default"].Schema({
   image: {
     type: String,

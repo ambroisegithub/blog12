@@ -10,7 +10,7 @@ var _blogController = require("../controllers/blogController");
 var router = _express["default"].Router();
 router.get("/getAllBlogs", _blogController.getAllBlogs);
 router.post("/postBlog", _blogController.CreatePost);
-router.post("/postBlog", _blogController.CreatePost);
+router.post("/comment/:id", _blogController.createComment);
 router.patch("/update/:id", _blogController.updatePost);
 // router.get("/getAllBlogs", getAllBlogs);
 router.route("/blog/:id").get(_blogController.getSinglePost)["delete"](_blogController.deletePost);

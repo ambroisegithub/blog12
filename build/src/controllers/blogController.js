@@ -245,7 +245,7 @@ var createComment = /*#__PURE__*/function () {
           }
           return _context6.abrupt("return", res.status(400).json({
             status: "failed",
-            message: "Post you are wishing to comment on doesn't exist"
+            message: "The post not found"
           }));
         case 6:
           comment = new _commentModel["default"]({

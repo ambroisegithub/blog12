@@ -17,7 +17,7 @@ var CommentSchema = new _mongoose["default"].Schema({
     required: [true, "Title field is required"],
     validator: [_validator["default"].isEmail, "The email you provide is incorrect"]
   },
-  comments: {
+  comment: {
     type: String,
     required: [true, "The comment field oes not be empty"]
   }
