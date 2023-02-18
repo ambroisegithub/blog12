@@ -118,12 +118,12 @@ export const createComment = async (req, res) => {
     if (!post) {
       return res.status(400).json({
         status: "failed",
-        message: "Post you are wishing to comment on doesn't exist",
+        message: "comment added the id not",
       });
     }
     const comment = new commentModel({
-      name: req.user.name,
-      email: req.user.email,
+      name: req.body.name,
+      email: req.body.email,
       comment: req.body.comment,
     });
     post.comments.push(comment);

@@ -1,4 +1,4 @@
-import postRoute from "./routes/blogRoutes";
+import postRoute from "../src/routes/blogRoutes";
 import upload from "./helpers/multer";
 import bodyParser from "body-parser";
 import morgan from "morgan";
