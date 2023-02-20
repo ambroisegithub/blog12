@@ -32,7 +32,7 @@ const options = {
     ],
     servers: [
       {
-        url: "http://localhost:4444",
+        url: "https://blogapi12.onrender.com",
       },
     ],
   },
