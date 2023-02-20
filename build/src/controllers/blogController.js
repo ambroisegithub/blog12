@@ -12,7 +12,7 @@ var _commentModel = _interopRequireDefault(require("../models/commentModel"));
 var _cloud = require("../helpers/cloud.js");
 var getAllBlogs = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
-    var blog;
+    var blogs;
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -20,16 +20,16 @@ var getAllBlogs = /*#__PURE__*/function () {
           _context.next = 3;
           return _blogModels["default"].find();
         case 3:
-          blog = _context.sent;
-          return _context.abrupt("return", res.status(300).json({
-            status: "Get Success",
-            number: blog.length,
-            blog: blog
+          blogs = _context.sent;
+          return _context.abrupt("return", res.status(200).json({
+            status: "success",
+            number: blogs.length,
+            blogs: blogs
           }));
         case 7:
           _context.prev = 7;
           _context.t0 = _context["catch"](0);
-          return _context.abrupt("return", res.status(500).json({
+          return _context.abrupt("return", res.status(404).json({
             status: "failed",
             error: _context.t0.message
           }));
@@ -64,8 +64,8 @@ var CreatePost = /*#__PURE__*/function () {
         case 6:
           newPost = _context2.sent;
           return _context2.abrupt("return", res.status(201).json({
-            status: "posted Success",
-            message: "blog created successfully",
+            status: "success",
+            message: "Blog created successfully",
             content: {
               newPost: newPost
             }
@@ -74,7 +74,7 @@ var CreatePost = /*#__PURE__*/function () {
           _context2.prev = 10;
           _context2.t0 = _context2["catch"](0);
           return _context2.abrupt("return", res.status(400).json({
-            status: "failed To create Blogs",
+            status: "failed",
             error: _context2.t0.message
           }));
         case 13:
@@ -108,9 +108,9 @@ var updatePost = /*#__PURE__*/function () {
             _context3.next = 10;
             break;
           }
-          return _context3.abrupt("return", res.status(200).json({
+          return _context3.abrupt("return", res.status(400).json({
             status: "failed",
-            message: "Invalid Id can not uploads blog"
+            message: "Id of post not found"
           }));
         case 10:
           _context3.next = 12;
@@ -120,14 +120,14 @@ var updatePost = /*#__PURE__*/function () {
             image: result.secure_url
           });
         case 12:
-          return _context3.abrupt("return", res.status(500).json({
+          return _context3.abrupt("return", res.status(200).json({
             status: "success",
             message: "Post updated successfully"
           }));
         case 15:
           _context3.prev = 15;
           _context3.t0 = _context3["catch"](0);
-          return _context3.abrupt("return", res.status(200).json({
+          return _context3.abrupt("return", res.status(400).json({
             status: "failed",
             error: _context3.t0
           }));
@@ -158,19 +158,19 @@ var getSinglePost = /*#__PURE__*/function () {
             _context4.next = 7;
             break;
           }
-          return _context4.abrupt("return", res.status(200).json({
+          return _context4.abrupt("return", res.status(400).json({
             status: "failed",
             message: "Id of post not found"
           }));
         case 7:
-          return _context4.abrupt("return", res.status(500).json({
+          return _context4.abrupt("return", res.status(200).json({
             status: "success",
             post: post
           }));
         case 10:
           _context4.prev = 10;
           _context4.t0 = _context4["catch"](0);
-          return _context4.abrupt("return", res.status(200).json({
+          return _context4.abrupt("return", res.status(400).json({
             status: "failed",
             error: _context4.t0
           }));
@@ -245,12 +245,12 @@ var createComment = /*#__PURE__*/function () {
           }
           return _context6.abrupt("return", res.status(400).json({
             status: "failed",
-            message: "The post not found"
+            message: "comment added the id not"
           }));
         case 6:
           comment = new _commentModel["default"]({
-            name: req.user.name,
-            email: req.user.email,
+            name: req.body.name,
+            email: req.body.email,
             comment: req.body.comment
           });
           post.comments.push(comment);

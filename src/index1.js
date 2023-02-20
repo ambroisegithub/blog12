@@ -14,8 +14,8 @@ mongoose
     console.log(err);
   });
 
-const PORT1 = process.env.PORT1 || 2222;
-app.listen(PORT1 || 2222, () => {
+const PORT1 = process.env.PORT1 || 3333;
+app.listen(PORT1 || 3333, () => {
   console.log(`The server is running on port ${PORT1}`);
 });
 
